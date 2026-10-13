@@ -97,6 +97,66 @@ main { padding-bottom: 50px; }
   z-index: 1;
 }
 
+/* ---------- Blocs de codi dins dels apartats ---------- */
+.apartat pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9em;
+  line-height: 1.45;
+  margin: 14px 0;
+}
+
+.apartat code {
+  background: var(--fons);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.9em;
+}
+
+/* Dins d'un <pre>, el <code> no ha de tenir fons clar */
+.apartat pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+/* ---------- Caixa de nota destacada ---------- */
+.note {
+  background: #e7f3fe;
+  border-left: 6px solid #2196F3;
+  padding: 15px 18px;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+.note strong { color: var(--mari); }
+
+/* ---------- Captures de pantalla ---------- */
+.apartat img.screenshot {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--vora);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  margin: 20px 0;
+}
+
+/* ---------- Llista de prioritats (apartat 6) ---------- */
+.priority-list {
+  background: var(--fons);
+  padding: 18px 22px 18px 42px;
+  border-radius: var(--radi);
+  border: 1px solid var(--vora);
+}
+.priority-list li { margin-bottom: 10px; }
+.priority-list li:last-child { margin-bottom: 0; }
+.priority-list strong { color: var(--ambre); }
+
 /* ---------- Portada ---------- */
 .portada-hero { text-align: center; }
 .portada-hero img.imatge-portada {
