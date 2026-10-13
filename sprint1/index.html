@@ -1,177 +1,175 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pinning de Paquets a Ubuntu</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        h1, h2, h3 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        h1 {
-            text-align: center;
-        }
-        code {
-            background-color: #e8e8e8;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: "Courier New", Courier, monospace;
-        }
-        pre {
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.9em;
-        }
-        .screenshot {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin: 20px 0;
-            display: block;
-        }
-        .note {
-            background-color: #e7f3fe;
-            border-left: 6px solid #2196F3;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        .priority-list {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .priority-list li {
-            margin-bottom: 10px;
-        }
-        .priority-list strong {
-            color: #e67e22;
-        }
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #777;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 1 · Pinning de paquets a Ubuntu</title>
+<link rel="stylesheet" href="../css/estils.css">
 </head>
 <body>
 
-    <h1>📦 Pinning de Paquets a Ubuntu</h1>
-    <p>El <strong>pinning</strong> (o fixació de versions) és una tècnica d'APT que permet controlar quina versió d'un paquet s'instal·la, prioritzar un repositori sobre un altre o fins i tot bloquejar completament la instal·lació d'un paquet. A continuació es documenta el procediment pràctic.</p>
+<header class="hero">
+  <nav class="hero-nav">
+    <a href="../index.html">Portada</a>
+    <a href="../sprints-ubuntu.html">Sprints d'Ubuntu</a>
+    <a href="../sprints-windows.html">Sprints de Windows</a>
+    <a href="https://github.com/" target="_blank" rel="noopener">Codi a GitHub ↗</a>
+  </nav>
+  <div class="hero-titol">
+    <p class="miguetes"><a href="../index.html">Portada</a> / <a href="../sprints-ubuntu.html">Sprints d'Ubuntu</a> / Sprint 1</p>
+    <h1>Sprint 1 · Pinning de paquets a Ubuntu</h1>
+    <p class="subtitol">Índex d'apartats d'aquest sprint</p>
+  </div>
+</header>
 
-    <hr>
+<main class="contenidor">
+  <section class="panell">
+    <a id="index-apartats"></a>
 
-    <!-- Secció 1 -->
-    <section>
-        <h2>1. Identificar la versió del paquet</h2>
-        <p>Abans de configurar el pinning, cal conèixer quines versions estan disponibles i quines prioritats tenen actualment. Utilitza la comanda <code>apt-cache policy</code>:</p>
-        
-        <pre>apt-cache policy nginx</pre>
-        
-        <img src="captura1.png" alt="Captura de pantalla: apt-cache policy nginx mostrant les versions disponibles" class="screenshot">
-        
-        <div class="note">
-            <strong>Nota:</strong> A la captura es pot veure que la versió candidata és la <code>1.24.0-2ubuntu7.18</code> amb una prioritat de 500 (prioritat per defecte).
-        </div>
-    </section>
+    <p>El <strong>pinning</strong> (o fixació de versions) és una tècnica d'APT que permet
+       controlar quina versió d'un paquet s'instal·la, prioritzar un repositori sobre un
+       altre o fins i tot bloquejar completament la instal·lació d'un paquet.
+       A continuació es documenta el procediment pràctic.</p>
 
-    <hr>
+    <table class="taula-apartats">
+      <thead>
+        <tr><th>#</th><th>Apartat</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><a href="#apartat1">Identificar la versió del paquet</a></td></tr>
+        <tr><td>2</td><td><a href="#apartat2">Crear el fitxer de configuració</a></td></tr>
+        <tr><td>3</td><td><a href="#apartat3">Exemple 1: Definir una versió específica</a></td></tr>
+        <tr><td>4</td><td><a href="#apartat4">Exemple 2: Donar prioritat a un repositori</a></td></tr>
+        <tr><td>5</td><td><a href="#apartat5">Exemple 3: Prohibir la instal·lació d'un paquet</a></td></tr>
+        <tr><td>6</td><td><a href="#apartat6">Nivells de prioritat (Pin-Priority)</a></td></tr>
+      </tbody>
+    </table>
 
-    <!-- Secció 2 -->
-    <section>
-        <h2>2. Crear el fitxer de configuració</h2>
-        <p>Les preferències d'APT es defineixen en fitxers dins del directori <code>/etc/apt/preferences.d/</code>. És recomanable crear un fitxer específic per al paquet que volem configurar.</p>
-        
-        <pre>sudo nano /etc/apt/preferences.d/pin-nginx</pre>
-        
-        <img src="captura2.png" alt="Captura de pantalla: obrint nano per crear el fitxer de pinning" class="screenshot">
-    </section>
+    <!-- ============ APARTAT 1 ============ -->
+    <article class="apartat" id="apartat1">
+      <h2>1. Identificar la versió del paquet</h2>
+      <p>Abans de configurar el pinning, cal conèixer quines versions estan disponibles
+         i quines prioritats tenen actualment. Utilitza la comanda
+         <code>apt-cache policy</code>:</p>
 
-    <hr>
+      <pre>apt-cache policy nginx</pre>
 
-    <!-- Secció 3 -->
-    <section>
-        <h2>3. Exemple d'ús 1: Definir una versió específica</h2>
-        <p>En aquest exemple, forcem que la versió <code>1.24.0-2ubuntu7</code> sigui la que s'instal·li, donant-li una prioritat superior a 1000. Això farà que APT la seleccioni fins i tot si hi ha versions més noves.</p>
-        
-        <pre>Package: nginx
+      <img src="../img/captura1.png"
+           alt="Captura de pantalla: apt-cache policy nginx mostrant les versions disponibles"
+           class="screenshot">
+
+      <div class="note">
+        <strong>Nota:</strong> A la captura es pot veure que la versió candidata és la
+        <code>1.24.0-2ubuntu7.18</code> amb una prioritat de 500 (prioritat per defecte).
+      </div>
+
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <!-- ============ APARTAT 2 ============ -->
+    <article class="apartat" id="apartat2">
+      <h2>2. Crear el fitxer de configuració</h2>
+      <p>Les preferències d'APT es defineixen en fitxers dins del directori
+         <code>/etc/apt/preferences.d/</code>. És recomanable crear un fitxer específic
+         per al paquet que volem configurar.</p>
+
+      <pre>sudo nano /etc/apt/preferences.d/pin-nginx</pre>
+
+      <img src="../img/captura2.png"
+           alt="Captura de pantalla: obrint nano per crear el fitxer de pinning"
+           class="screenshot">
+
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <!-- ============ APARTAT 3 ============ -->
+    <article class="apartat" id="apartat3">
+      <h2>3. Exemple d'ús 1: Definir una versió específica</h2>
+      <p>En aquest exemple, forcem que la versió <code>1.24.0-2ubuntu7</code> sigui la que
+         s'instal·li, donant-li una prioritat superior a 1000. Això farà que APT la
+         seleccioni fins i tot si hi ha versions més noves.</p>
+
+      <pre>Package: nginx
 Pin: version 1.24.0-2ubuntu7
 Pin-Priority: 1001</pre>
-        
-        <img src="captura3.png" alt="Captura de pantalla: contingut del fitxer pin-nginx amb la versió específica" class="screenshot">
 
-        <h3>Comprovació</h3>
-        <p>Un cop guardat el fitxer, tornem a comprovar amb <code>apt-cache policy</code> per assegurar-nos que la prioritat ha canviat correctament:</p>
-        
-        <img src="captura4.png" alt="Captura de pantalla: comprovació de la prioritat canviada a 1001" class="screenshot">
-    </section>
+      <img src="../img/captura3.png"
+           alt="Captura de pantalla: contingut del fitxer pin-nginx amb la versió específica"
+           class="screenshot">
 
-    <hr>
+      <h3>Comprovació</h3>
+      <p>Un cop guardat el fitxer, tornem a comprovar amb <code>apt-cache policy</code>
+         per assegurar-nos que la prioritat ha canviat correctament:</p>
 
-    <!-- Secció 4 -->
-    <section>
-        <h2>4. Exemple d'ús 2: Donar prioritat a un repositori</h2>
-        <p>En lloc de fixar una versió exacta, podem prioritzar un repositori sencer. Per exemple, per assegurar-nos que sempre s'instal·li la versió provinent de <code>noble-security</code>:</p>
-        
-        <pre>Package: nginx
+      <img src="../img/captura4.png"
+           alt="Captura de pantalla: comprovació de la prioritat canviada a 1001"
+           class="screenshot">
+
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <!-- ============ APARTAT 4 ============ -->
+    <article class="apartat" id="apartat4">
+      <h2>4. Exemple d'ús 2: Donar prioritat a un repositori</h2>
+      <p>En lloc de fixar una versió exacta, podem prioritzar un repositori sencer. Per
+         exemple, per assegurar-nos que sempre s'instal·li la versió provinent de
+         <code>noble-security</code>:</p>
+
+      <pre>Package: nginx
 Pin: release a=noble-security
 Pin-Priority: 900</pre>
-        
-        <p>Amb una prioritat de 900, APT preferirà aquest repositori per sobre dels estàndard (500), però no per sobre d'una versió forçada amb prioritat 1000.</p>
-    </section>
 
-    <hr>
+      <p>Amb una prioritat de 900, APT preferirà aquest repositori per sobre dels
+         estàndard (500), però no per sobre d'una versió forçada amb prioritat 1000.</p>
 
-    <!-- Secció 5 -->
-    <section>
-        <h2>5. Exemple d'ús 3: Prohibir la instal·lació d'un paquet</h2>
-        <p>Si volem evitar completament que un paquet s'instal·li o s'actualitzi, podem assignar-li una prioritat negativa.</p>
-        
-        <pre>Package: nginx
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+    <!-- ============ APARTAT 5 ============ -->
+    <article class="apartat" id="apartat5">
+      <h2>5. Exemple d'ús 3: Prohibir la instal·lació d'un paquet</h2>
+      <p>Si volem evitar completament que un paquet s'instal·li o s'actualitzi, podem
+         assignar-li una prioritat negativa.</p>
+
+      <pre>Package: nginx
 Pin: release *
 Pin-Priority: -1</pre>
-        
-        <p>Amb aquesta configuració, APT mai no instal·larà ni actualitzarà el paquet <code>nginx</code>, tret que es canviï la prioritat manualment.</p>
-    </section>
 
-    <hr>
+      <p>Amb aquesta configuració, APT mai no instal·larà ni actualitzarà el paquet
+         <code>nginx</code>, tret que es canviï la prioritat manualment.</p>
 
-    <!-- Secció de Nivells de Prioritat -->
-    <section>
-        <h2>📊 Nivells de prioritat (Pin-Priority) més utilitzats</h2>
-        <div class="priority-list">
-            <ul>
-               <li><strong>&gt; 1000:</strong> Permet instal·lar una versió anterior a la que ja tenim (downgrade), encara que APT normalment no ho faria.</li>
-               <li><strong>990 - 1000:</strong> Fa que aquesta versió sigui la preferida per davant de qualsevol altra, encara que n'hi hagi de més recents.</li>
-               <li><strong>500:</strong> És el valor que APT assigna per defecte als repositoris oficials.</li>
-               <li><strong>1 - 99:</strong> La versió només es tindrà en compte si no existeix cap alternativa millor.</li>
-               <li><strong>&lt; 0:</strong> Bloqueja el paquet: APT no el podrà instal·lar ni actualitzar mai.</li>
-            </ul>
-        </div>
-    </section>
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
 
-    <footer>
-        <p>Documentació millorada per a la Sprint 1 - Sistemes Operatius</p>
-    </footer>
+    <!-- ============ APARTAT 6 ============ -->
+    <article class="apartat" id="apartat6">
+      <h2>6. 📊 Nivells de prioritat (Pin-Priority) més utilitzats</h2>
+      <ul class="priority-list">
+        <li><strong>&gt; 1000:</strong> Força la versió indicada fins i tot si requereix
+            fer un <em>downgrade</em> (instal·lar una versió inferior a l'actual).</li>
+        <li><strong>990 - 1000:</strong> Prioritza la versió indicada encara que n'hi hagi
+            de més noves als repositoris.</li>
+        <li><strong>500:</strong> Prioritat per defecte dels repositoris estàndard.</li>
+        <li><strong>1 - 99:</strong> Només s'instal·larà si no hi ha cap altra versió
+            disponible.</li>
+        <li><strong>&lt; 0:</strong> Prohibeix totalment la instal·lació del paquet.</li>
+      </ul>
+
+      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
+    </article>
+
+  </section>
+</main>
+
+<footer class="peu">
+  <p class="peu-llicencia">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">
+      <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Llicència Creative Commons Reconeixement-NoComercial-CompartirIgual 4.0" width="88" height="31">
+    </a>
+    <span>Contingut sota llicència <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">CC BY-NC-SA 4.0</a></span>
+  </p>
+  <p class="autoria">Autor/a: <strong>Aarhon Merlos Martinez</strong> · Pràctica 0 · Sistemes Operatius (ISOPJ1)</p>
+</footer>
 
 </body>
 </html>
