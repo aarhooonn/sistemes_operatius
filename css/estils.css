@@ -173,6 +173,22 @@ h1, h2 { color: var(--mari); }
 }
 .consell code { background: var(--fons); padding: 1px 5px; border-radius: 4px; }
 
+/* ---------- Botons de la portada (Ubuntu / Windows) ---------- */
+.botons-portada {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.boto-secundari {
+  background: var(--ambre);
+}
+.boto-secundari:hover {
+  background: var(--mari);
+}
+
 /* ---------- Taula d'apartats (índex intern d'un sprint, amb ancoratges) ---------- */
 .taula-apartats {
   width: 100%;
