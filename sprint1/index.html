@@ -1,116 +1,177 @@
 <!DOCTYPE html>
 <html lang="ca">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sprint 1 · Instal·lació i configuració inicial</title>
-<link rel="stylesheet" href="../css/estils.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinning de Paquets a Ubuntu</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+        }
+        code {
+            background-color: #e8e8e8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            display: block;
+        }
+        .note {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .priority-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .priority-list li {
+            margin-bottom: 10px;
+        }
+        .priority-list strong {
+            color: #e67e22;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
 </head>
 <body>
 
-<header class="hero">
-  <nav class="hero-nav">
-    <a href="../index.html">Portada</a>
-    <a href="../sprints.html">Índex de sprints</a>
-    <a href="https://github.com/" target="_blank" rel="noopener">Codi a GitHub ↗</a>
-  </nav>
-  <div class="hero-titol">
-    <p class="miguetes"><a href="../index.html">Portada</a> / <a href="../sprints.html">Índex de sprints</a> / Sprint 1</p>
-    <h1>Sprint 1 · Instal·lació i configuració inicial</h1>
-    <p class="subtitol">Índex d'apartats d'aquest sprint</p>
-  </div>
-</header>
+    <h1>📦 Pinning de Paquets a Ubuntu</h1>
+    <p>El <strong>pinning</strong> (o fixació de versions) és una tècnica d'APT que permet controlar quina versió d'un paquet s'instal·la, prioritzar un repositori sobre un altre o fins i tot bloquejar completament la instal·lació d'un paquet. A continuació es documenta el procediment pràctic.</p>
 
-<main class="contenidor">
-  <section class="panell">
-    <a id="index-apartats"></a>
-    <table class="taula-apartats">
-      <thead>
-        <tr><th>#</th><th>Apartat</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td><a href="#apartat1">Instal·lació del sistema operatiu</a></td></tr>
-        <tr><td>2</td><td><a href="#apartat2">Configuració de xarxa bàsica</a></td></tr>
-        <tr><td>3</td><td><a href="#apartat3">Creació d'usuaris i grups</a></td></tr>
-        <tr><td>4</td><td><a href="#apartat4">Comprovació final</a></td></tr>
-      </tbody>
-    </table>
+    <hr>
 
-    <article class="apartat" id="apartat1">
-      <h2>1. Instal·lació del sistema operatiu</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Un cop arrencat
-         el suport d'instal·lació, cal seguir l'assistent i triar les opcions de
-         particionat abans de continuar. <strong>Aquest pas és irreversible</strong>,
-         així que revisa bé el disc de destinació.</p>
-      <ul>
-        <li>Arrencar des del USB o la imatge ISO.</li>
-        <li>Triar l'idioma i la distribució de teclat.</li>
-        <li>Configurar el particionat del disc.</li>
-        <li>Esperar que finalitzi la còpia d'arxius i reiniciar.</li>
-      </ul>
-      <img src="../img/exemple.svg" alt="Exemple de captura de pantalla de l'assistent d'instal·lació">
-      <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-         Un cop reiniciat el sistema, comprova que arrenca correctament i que
-         reconeix tot el maquinari abans de continuar amb el següent apartat.</p>
-      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
-    </article>
-    <article class="apartat" id="apartat2">
-      <h2>2. Configuració de xarxa bàsica</h2>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-         ut aliquip ex ea commodo consequat. La configuració de xarxa és
-         <strong>imprescindible</strong> per poder actualitzar el sistema i
-         instal·lar programari nou.</p>
-      <ul>
-        <li>Comprovar l'adreça IP assignada amb <code>ip a</code>.</li>
-        <li>Configurar una IP estàtica si el servei ho requereix.</li>
-        <li>Verificar la connectivitat amb <code>ping</code>.</li>
-      </ul>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-         dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
-    </article>
-    <article class="apartat" id="apartat3">
-      <h2>3. Creació d'usuaris i grups</h2>
-      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui
-         blanditiis praesentium voluptatum deleniti atque corrupti. Cada
-         usuari nou s'hauria d'assignar al <strong>grup mínim necessari</strong>
-         segons les tasques que ha de fer.</p>
-      <img src="../img/exemple.svg" alt="Exemple de captura de pantalla de la gestió d'usuaris">
-      <ul>
-        <li>Crear l'usuari amb <code>useradd</code>.</li>
-        <li>Assignar contrasenya amb <code>passwd</code>.</li>
-        <li>Afegir l'usuari als grups necessaris amb <code>usermod -aG</code>.</li>
-      </ul>
-      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
-    </article>
-    <article class="apartat" id="apartat4">
-      <h2>4. Comprovació final</h2>
-      <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-         tempore, cum soluta nobis est eligendi optio cumque nihil impedit.
-         Abans de donar per acabat el sprint, revisa aquest resum:</p>
-      <ul>
-        <li>El sistema arrenca sense errors.</li>
-        <li>La xarxa respon correctament als <em>pings</em>.</li>
-        <li><strong>Els usuaris i grups creats coincideixen amb l'enunciat.</strong></li>
-      </ul>
-      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-         fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
-         sequi nesciunt.</p>
-      <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
-    </article>
-  </section>
-</main>
+    <!-- Secció 1 -->
+    <section>
+        <h2>1. Identificar la versió del paquet</h2>
+        <p>Abans de configurar el pinning, cal conèixer quines versions estan disponibles i quines prioritats tenen actualment. Utilitza la comanda <code>apt-cache policy</code>:</p>
+        
+        <pre>apt-cache policy nginx</pre>
+        
+        <img src="captura1.png" alt="Captura de pantalla: apt-cache policy nginx mostrant les versions disponibles" class="screenshot">
+        
+        <div class="note">
+            <strong>Nota:</strong> A la captura es pot veure que la versió candidata és la <code>1.24.0-2ubuntu7.18</code> amb una prioritat de 500 (prioritat per defecte).
+        </div>
+    </section>
 
-<footer class="peu">
-  <p class="peu-llicencia">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">
-      <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Llicència Creative Commons Reconeixement-NoComercial-CompartirIgual 4.0" width="88" height="31">
-    </a>
-    <span>Contingut sota llicència <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">CC BY-NC-SA 4.0</a></span>
-  </p>
-  <p class="autoria">Autor/a: <strong>Nom Cognom1 Cognom2</strong> · Pràctica 0 · Sistemes Operatius (ISOPJ1)</p>
-</footer>
+    <hr>
+
+    <!-- Secció 2 -->
+    <section>
+        <h2>2. Crear el fitxer de configuració</h2>
+        <p>Les preferències d'APT es defineixen en fitxers dins del directori <code>/etc/apt/preferences.d/</code>. És recomanable crear un fitxer específic per al paquet que volem configurar.</p>
+        
+        <pre>sudo nano /etc/apt/preferences.d/pin-nginx</pre>
+        
+        <img src="captura2.png" alt="Captura de pantalla: obrint nano per crear el fitxer de pinning" class="screenshot">
+    </section>
+
+    <hr>
+
+    <!-- Secció 3 -->
+    <section>
+        <h2>3. Exemple d'ús 1: Definir una versió específica</h2>
+        <p>En aquest exemple, forcem que la versió <code>1.24.0-2ubuntu7</code> sigui la que s'instal·li, donant-li una prioritat superior a 1000. Això farà que APT la seleccioni fins i tot si hi ha versions més noves.</p>
+        
+        <pre>Package: nginx
+Pin: version 1.24.0-2ubuntu7
+Pin-Priority: 1001</pre>
+        
+        <img src="captura3.png" alt="Captura de pantalla: contingut del fitxer pin-nginx amb la versió específica" class="screenshot">
+
+        <h3>Comprovació</h3>
+        <p>Un cop guardat el fitxer, tornem a comprovar amb <code>apt-cache policy</code> per assegurar-nos que la prioritat ha canviat correctament:</p>
+        
+        <img src="captura4.png" alt="Captura de pantalla: comprovació de la prioritat canviada a 1001" class="screenshot">
+    </section>
+
+    <hr>
+
+    <!-- Secció 4 -->
+    <section>
+        <h2>4. Exemple d'ús 2: Donar prioritat a un repositori</h2>
+        <p>En lloc de fixar una versió exacta, podem prioritzar un repositori sencer. Per exemple, per assegurar-nos que sempre s'instal·li la versió provinent de <code>noble-security</code>:</p>
+        
+        <pre>Package: nginx
+Pin: release a=noble-security
+Pin-Priority: 900</pre>
+        
+        <p>Amb una prioritat de 900, APT preferirà aquest repositori per sobre dels estàndard (500), però no per sobre d'una versió forçada amb prioritat 1000.</p>
+    </section>
+
+    <hr>
+
+    <!-- Secció 5 -->
+    <section>
+        <h2>5. Exemple d'ús 3: Prohibir la instal·lació d'un paquet</h2>
+        <p>Si volem evitar completament que un paquet s'instal·li o s'actualitzi, podem assignar-li una prioritat negativa.</p>
+        
+        <pre>Package: nginx
+Pin: release *
+Pin-Priority: -1</pre>
+        
+        <p>Amb aquesta configuració, APT mai no instal·larà ni actualitzarà el paquet <code>nginx</code>, tret que es canviï la prioritat manualment.</p>
+    </section>
+
+    <hr>
+
+    <!-- Secció de Nivells de Prioritat -->
+    <section>
+        <h2>📊 Nivells de prioritat (Pin-Priority) més utilitzats</h2>
+        <div class="priority-list">
+            <ul>
+                <li><strong>&gt; 1000:</strong> Força la versió indicada fins i tot si requereix fer un <em>downgrade</em> (instal·lar una versió inferior a l'actual).</li>
+                <li><strong>990 - 1000:</strong> Prioritza la versió indicada encara que n'hi hagi de més noves als repositoris.</li>
+                <li><strong>500:</strong> Prioritat per defecte dels repositoris estàndard.</li>
+                <li><strong>1 - 99:</strong> Només s'instal·larà si no hi ha cap altra versió disponible.</li>
+                <li><strong>&lt; 0:</strong> Prohibeix totalment la instal·lació del paquet.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>Documentació millorada per a la Sprint 1 - Sistemes Operatius</p>
+    </footer>
 
 </body>
 </html>
