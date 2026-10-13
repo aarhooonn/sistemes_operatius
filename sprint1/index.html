@@ -160,11 +160,11 @@ Pin-Priority: -1</pre>
         <h2>📊 Nivells de prioritat (Pin-Priority) més utilitzats</h2>
         <div class="priority-list">
             <ul>
-                <li><strong>&gt; 1000:</strong> Força la versió indicada fins i tot si requereix fer un <em>downgrade</em> (instal·lar una versió inferior a l'actual).</li>
-                <li><strong>990 - 1000:</strong> Prioritza la versió indicada encara que n'hi hagi de més noves als repositoris.</li>
-                <li><strong>500:</strong> Prioritat per defecte dels repositoris estàndard.</li>
-                <li><strong>1 - 99:</strong> Només s'instal·larà si no hi ha cap altra versió disponible.</li>
-                <li><strong>&lt; 0:</strong> Prohibeix totalment la instal·lació del paquet.</li>
+               <li><strong>&gt; 1000:</strong> Permet instal·lar una versió anterior a la que ja tenim (downgrade), encara que APT normalment no ho faria.</li>
+               <li><strong>990 - 1000:</strong> Fa que aquesta versió sigui la preferida per davant de qualsevol altra, encara que n'hi hagi de més recents.</li>
+               <li><strong>500:</strong> És el valor que APT assigna per defecte als repositoris oficials.</li>
+               <li><strong>1 - 99:</strong> La versió només es tindrà en compte si no existeix cap alternativa millor.</li>
+               <li><strong>&lt; 0:</strong> Bloqueja el paquet: APT no el podrà instal·lar ni actualitzar mai.</li>
             </ul>
         </div>
     </section>
