@@ -163,18 +163,16 @@ Pin-Priority: -1</pre>
 
     <!-- ============ APARTAT 6 ============ -->
     <article class="apartat" id="apartat6">
-      <h2>6. 📊 Nivells de prioritat (Pin-Priority) més utilitzats</h2>
+      <h2>6. Nivells de prioritat (Pin-Priority) més utilitzats</h2>
       <ul class="priority-list">
-        <li><strong>&gt; 1000:</strong> Força la instal·lació de la versió indicada fins i tot si això implica
-            fer un <em>downgrade</em> </li>
-        <li><strong>990 - 1000:</strong> Prioritza la versió indicada encara que n'hi hagi
-            de més noves als repositoris.</li>
-        <li><strong>500:</strong> Prioritat per defecte dels repositoris estàndard.</li>
-        <li><strong>1 - 99:</strong> Estableix una prioritat molt baixa. El paquet només s'instal·larà si no hi ha cap altra versió
-            disponible.</li>
-        <li><strong>&lt; 0:</strong> No ens permetrà la instal·lació del paquet.</li>
+        <li><strong>&gt; 1000:</strong> Imposa la versió triada, forçant si cal la instal·lació d'una versió més antiga </li>
+        <li><strong>990 - 1000:</strong> Considera aquesta versió com a preferent, ignorant qualsevol actualització posterior del repositori.</li>
+        <li><strong>500:</strong> Valor per defecte atorgat als repositoris ordinaris.</li>
+        <li><strong>1 - 99:</strong> S'utilitza només com a última opció si no hi ha cap altra alternativa.</li>
+        <li><strong>&lt; 0:</strong> Bloca i veta de manera absoluta qualsevol instal·lació del paquet.</li>
       </ul>
-
+      <pre>sudo rm /etc/apt/preferences.d/pin-nginx
+       apt-cache policy nginx</pre>
       <p class="tornar-index"><a href="#index-apartats">↑ Tornar a l'índex</a></p>
     </article>
 
