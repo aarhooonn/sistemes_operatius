@@ -655,12 +655,19 @@ figure.captura figcaption strong { color: #fff; }
   padding: 0;
   margin: 8px 0 12px;
   color: var(--vermell);
-  font-family: "DejaVu Sans Mono", "Noto Sans Mono", "Segoe UI Symbol", "Apple Braille", ui-monospace, monospace;
-  font-size: clamp(4.5px, 1.2vw, 11px);
-  line-height: 1;
+  font-family: "DejaVu Sans Mono", "Noto Sans Mono", "Segoe UI Symbol", "Apple Braille", monospace;
+  font-size: 11px;              /* mida entera fixa (abans: clamp amb vw) */
+  line-height: normal;          /* abans: 1 -> desquadrava les files del braille */
   letter-spacing: 0;
+  text-align: left;             /* no heretar el center de .portada-hero */
+  white-space: pre;
+  font-variant-ligatures: none;
+  font-kerning: none;
   overflow-x: auto;
 }
+/* Reducció per passos, sempre amb mides enteres */
+@media (max-width: 640px) { .terminal-cos pre.ascii { font-size: 7px; } }
+@media (max-width: 420px) { .terminal-cos pre.ascii { font-size: 5px; } }
 
 .cursor {
   display: inline-block;
