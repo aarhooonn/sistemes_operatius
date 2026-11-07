@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
 <title>Sistemes Operatius - Portada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
 <link rel="stylesheet" href="css/estils.css">
 </head>
 <body>
@@ -16,15 +21,61 @@
     <!-- Canvia aquest enllaç pel teu repositori quan el tinguis penjat -->
     <a href="https://aarhooonn.github.io/sistemes_operatius/" target="_blank" rel="noopener">Codi a GitHub ↗</a>
   </nav>
-  <div class="hero-titol">
-    <h1>Sistemes Operatius</h1>
-    <p class="subtitol">Mòdul ISOPJ1 · Cicle Formatiu de Grau Superior</p>
+
+  <!-- Pantalla d'inici: terminal amb efecte d'escriptura (sense JavaScript es veu tot ja escrit) -->
+  <div class="hero-terminal">
+    <div class="terminal" role="group" aria-label="Terminal d'inici">
+      <div class="terminal-barra" aria-hidden="true">
+        <span class="punt"></span><span class="punt"></span><span class="punt"></span>
+        <span class="terminal-titol">aarhon — bash</span>
+      </div>
+      <div class="terminal-cos" id="terminal">
+        <div class="pas">
+          <p class="linia"><span class="prompt">$</span><span class="ordre" data-text="whoami">whoami</span></p>
+          <p class="sortida">aarhon</p>
+        </div>
+        <div class="pas">
+          <p class="linia"><span class="prompt">$</span><span class="ordre" data-text="pwd">pwd</span></p>
+          <p class="sortida">/home/</p>
+        </div>
+        <div class="pas">
+          <p class="linia"><span class="prompt">$</span><span class="ordre" data-text="cat astral.png">cat astral.png</span></p>
+          <pre class="ascii" role="img" aria-label="Art ASCII de la imatge astral.png">⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⢠⣟⠀⠀⠀⠀⠀⠀⢠⠀⢰⠀⠀⠀⠀⠀⠀⠀⡏⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣏⣻⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠙⠀⠀⠀⠀⠀⠈⣿⡀⠀⠀⠀⠀⠀⢸⠀⠀⡇⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣼⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣄⠆⠀⠀⠀⠐⣿⣷⡀⠀⠀⠀⠀⠸⡀⠀⢷⠀⠀⠀⠀⠀⠀⢹⢈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⢰⢸⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣞⣆⠀⠀⠀⠀⠈⠛⠳⠄⠰⡀⠀⠀⠀⡀⠀⣠⡀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠈⣏⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢉⡆⠀⠀⠀⠀⢰⣇⠀⡄⠘⣦⡀⠀⣻⣄⠹⢿⢯⡀⠀⠍⣿⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⢻⢻⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢟⠎⠨⠀⠀⠀⠀⢀⠈⠳⢀⣿⣧⡀⢻⣷⣮⡛⠛⠉⠀⠉⠛⠏⠝⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢺⢸⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣵⠏⠀⠠⠀⡄⠀⠀⢸⠳⢆⣾⢿⣿⣿⣿⣿⣿⣥⡤⠾⣿⣿⠁⡂⢷⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⣾⢸⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⡿⣫⣾⠃⠀⢀⠂⠀⠀⠀⠀⢟⣵⣿⣷⣔⢌⠿⣿⣿⣿⣯⣦⣀⠛⠻⢬⣉⣤⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠆⢼⡀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⣷⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⢏⣼⡿⠃⢀⠨⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣷⣕⡌⢛⢿⣿⣿⣿⣿⢧⣤⡶⠄⠠⢀⣀⣤⣴⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢸⡃⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⢇⣾⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣦⡿⣎⡟⣿⢱⣸⣿⣷⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⡸⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡏⣼⡿⡵⠁⢀⡔⠠⢂⠄⠀⠀⠀⠐⡼⣦⣽⣿⣿⣿⣿⣿⣿⣿⣶⣯⠓⢩⣙⢻⢿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠥⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡝⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⡿⣭⣫⠞⡑⠠⣾⠃⠀⠠⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠇⢌⣿⣶⣤⣈⠺⣟⢿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡎⢿⣿⣿⣿
+⣿⣿⣿⣿⢟⣽⡓⠀⡠⢰⠋⠀⣰⠀⠀⠀⠀⠀⠀⠹⠻⣿⣿⣿⣿⣿⣿⣿⣿⣽⠠⣰⣶⣶⣶⣤⣄⣂⣙⠪⣽⣻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢠⠹⣿⡀⣻⣿⣿
+⣿⣿⣿⣯⣟⡽⠁⣰⡕⢰⠂⡰⠃⠀⠀⠀⠀⠀⠀⠀⢸⣦⣭⣻⠿⣿⣿⣿⣿⠃⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠀⠀⠹⡆⢹⣯⠱⣻⣿
+⣿⣿⣳⣟⡾⠁⣸⢙⣼⠈⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⣛⢿⣿⣷⣿⣿⣿⡟⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡐⣤⣿⡇⣇⣿
+⣿⣿⣿⣿⠣⢰⢏⡾⢁⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠃⣾⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⡘⣿⡇⢻⣾
+⣿⣿⣿⡏⢆⢊⠞⣴⢿⠀⠀⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠋⠉⠀⢀⣮⢯⣾⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢸⢱⠸⡏⣰⣿
+⣿⣿⣿⠃⠎⣠⣾⣿⠇⠀⠀⠀⠀⠀⣸⢧⠀⠀⠀⠀⠀⠀⠙⠛⠻⠿⠛⠛⠛⠋⠉⠁⠐⠈⠀⠀⠀⢀⣴⡟⣷⣿⠇⠂⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠘⡄⢰⡇⢰⣿⣿
+⣿⢿⠟⠠⣸⣿⣿⠏⠀⠀⡀⡆⠀⠀⣿⡄⡀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠢⠀⠀⠀⠀⠀⠀⢀⡴⣫⣯⣾⣿⡿⠄⠀⠀⠀⠀⠀⠀⠀⠀⣠⡿⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⢸⣾⡘⣿⣿
+⡿⣣⣾⢀⣿⣿⡟⠀⡄⢰⡇⡇⠀⠀⣼⣧⡇⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣧⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠈⣿⡇⣿⣿
+⣾⣿⡿⡈⢿⡿⠁⢰⠁⢸⡇⣇⠀⠆⡏⣿⣿⡌⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀⠀⠀⠀⠀⠀⢻⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠘⢿⠀⠀⠀⢀⣤⣶⣾⣿⣿⣷⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠂⢹⡷⢸⣿</pre>
+        </div>
+        <p class="linia pas-final"><span class="prompt">$</span></p>
+      </div>
+    </div>
   </div>
 </header>
 
 <main class="contenidor">
   <section class="panell portada-hero">
-    <img src="img/portada.svg" alt="Il·lustració d'un terminal de sistema operatiu" class="imatge-portada">
+    <div class="titol-portada">
+      <h1>Sistemes Operatius</h1>
+      <p class="subtitol">Mòdul ISOPJ1 · Cicle Formatiu de Grau Superior</p>
+    </div>
 
     <div class="fitxa-alumne">
       <p><strong>Alumne/a:</strong> Aarhon Merlos Martinez</p>
@@ -33,28 +84,30 @@
       <p><strong>Repositori:</strong> sistemes_operatius</p>
     </div>
 
-    <br>
-<br>
-<div class="botons-portada">
-  <a class="boto" href="sprints-ubuntu.html">Sprints d'Ubuntu →</a>
-  <a class="boto boto-secundari" href="sprints-windows.html">Sprints de Windows →</a>
-</div>
-    <div class="bloc-llicencia">
-      <h3>Llicència d'aquest treball</h3>
-      <p>Per defecte, tot el contingut d'aquesta web es publica amb la llicència
-         <strong>Creative Commons Reconeixement–NoComercial–CompartirIgual (CC BY-NC-SA 4.0)</strong>:
-         qualsevol persona pot veure i compartir el teu treball, sempre que
-         <strong>et citi com a autor/a</strong> i <strong>no en faci un ús comercial</strong>.</p>
-      <p>Pots mantenir-la o triar-ne una altra a
-         <a href="https://creativecommons.org/choose/?lang=ca" target="_blank" rel="noopener">creativecommons.org/choose</a>;
-         només cal que actualitzis l'enllaç i la insígnia d'aquí sota i del peu de cada pàgina.</p>
-      <div class="badge-cc">
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">
-          <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Llicència Creative Commons Reconeixement-NoComercial-CompartirIgual 4.0" width="88" height="31">
-        </a>
-        <span>CC BY-NC-SA 4.0</span>
-      </div>
+    <div class="botons-portada">
+      <a class="boto" href="sprints-ubuntu.html">Sprints d'Ubuntu →</a>
+      <a class="boto boto-secundari" href="sprints-windows.html">Sprints de Windows →</a>
     </div>
+
+    <details class="llicencia">
+      <summary>Llicència</summary>
+      <div class="bloc-llicencia">
+        <h3>Llicència d'aquest treball</h3>
+        <p>Per defecte, tot el contingut d'aquesta web es publica amb la llicència
+           <strong>Creative Commons Reconeixement–NoComercial–CompartirIgual (CC BY-NC-SA 4.0)</strong>:
+           qualsevol persona pot veure i compartir el teu treball, sempre que
+           <strong>et citi com a autor/a</strong> i <strong>no en faci un ús comercial</strong>.</p>
+        <p>Pots mantenir-la o triar-ne una altra a
+           <a href="https://creativecommons.org/choose/?lang=ca" target="_blank" rel="noopener">creativecommons.org/choose</a>;
+           només cal que actualitzis l'enllaç i la insígnia d'aquí sota i del peu de cada pàgina.</p>
+        <div class="badge-cc">
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">
+            <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Llicència Creative Commons Reconeixement-NoComercial-CompartirIgual 4.0" width="88" height="31">
+          </a>
+          <span>CC BY-NC-SA 4.0</span>
+        </div>
+      </div>
+    </details>
   </section>
 </main>
 
@@ -68,5 +121,56 @@
   <p class="autoria">Autor/a: <strong>Aarhon Merlos Martinez</strong> · Pràctica 0 · Sistemes Operatius (ISOPJ1)</p>
 </footer>
 
+<script>
+/* Efecte d'escriptura del terminal: whoami → pwd → cat astral.png (l'art surt de cop) */
+(function () {
+  var t = document.getElementById('terminal');
+  if (!t || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; /* es queda tot escrit */
+
+  var passos = [].slice.call(t.querySelectorAll('.pas'));
+  var final = t.querySelector('.pas-final');
+  var cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  cursor.setAttribute('aria-hidden', 'true');
+
+  passos.forEach(function (p) { p.hidden = true; });
+  final.hidden = true;
+
+  function executa(k) {
+    if (k >= passos.length) {
+      final.hidden = false;
+      final.appendChild(cursor);
+      return;
+    }
+    var p = passos[k];
+    var linia = p.querySelector('.linia');
+    var ordre = linia.querySelector('.ordre');
+    var text = ordre.getAttribute('data-text');
+    var sortides = [].slice.call(p.children).filter(function (e) { return e !== linia; });
+
+    sortides.forEach(function (e) { e.hidden = true; });
+    ordre.textContent = '';
+    p.hidden = false;
+    linia.appendChild(cursor);
+
+    var i = 0;
+    (function tecla() {
+      if (i < text.length) {
+        ordre.textContent += text.charAt(i++);
+        setTimeout(tecla, 70 + Math.random() * 70);
+      } else {
+        setTimeout(function () {
+          sortides.forEach(function (e) { e.hidden = false; });
+          setTimeout(function () { executa(k + 1); }, 600);
+        }, 380);
+      }
+    })();
+  }
+
+  setTimeout(function () { executa(0); }, 600);
+})();
+</script>
+
 </body>
 </html>
+
