@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#000000">
+<title>Sistemes Operatius - Portada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap">
+<!-- Base: variables, terminal, etc. -->
+<link rel="stylesheet" href="css/estils.css">
+
+<script>
+  /* INTERRUPTOR D'ANIMACIONS
+     true  = les animacions de la portada (terminal, títol, cursor…) es veuen sempre,
+             encara que el sistema tingui activada l'opció «reduir animacions».
+     false = es respecta aquesta opció i la portada es mostra estàtica. */
+  window.PORTADA_ANIMACIONS_SEMPRE = true;
+  if (window.PORTADA_ANIMACIONS_SEMPRE) document.documentElement.classList.add('anim-sempre');
+</script>
+
+<style>
+  /* =====================================================================
+     ESTILS NOMÉS PER A LA PORTADA
+     ===================================================================== */
+
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: safe center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: var(--negre);
+    overflow-y: auto;
+  }
+
+  .portada-wrapper {
+    width: 100%;
+    max-width: 940px; /* Amplada original del contenidor */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Navegació superior */
+  .hero-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    width: 100%;
+  }
+
+  /* Títol */
+  .titol-animat {
+    font-family: var(--sans);
+    font-size: clamp(2.2rem, 6.4vw, 3.7rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0 0 28px 0;
+    text-align: center;
+    filter: drop-shadow(0 0 22px rgba(255, 74, 74, 0.28));
+  }
+
+  /* Prompt de terminal davant del títol */
+  .titol-prompt {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.5em;
+    letter-spacing: 0;
+    color: var(--vermell);
+    margin-right: 0.55em;
+    vertical-align: 0.25em;
+  }
+
+  /* Cada paraula entra des de baix i té un reflex que la recorre */
+  .titol-paraula {
+    display: inline-block;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    background-size: 260% 100%;
+    animation: titol-entra 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+               titol-reflex 6s ease-in-out 1.2s infinite;
+  }
+  .titol-paraula:not(.titol-accent) {
+    background-image: linear-gradient(100deg, #ffffff 0%, #ffffff 42%, #ffcaca 50%, #ffffff 58%, #ffffff 100%);
+  }
+  .titol-accent {
+    background-image: linear-gradient(100deg, #ff4a4a 0%, #e01b24 38%, #ffb3ab 50%, #e01b24 62%, #ff4a4a 100%);
+    animation: titol-entra 0.8s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+               titol-reflex 6s ease-in-out 1.4s infinite;
+  }
+
+  /* Cursor de bloc que parpelleja al final */
+  .titol-bloc {
+    display: inline-block;
+    width: 0.42em;
+    height: 0.78em;
+    margin-left: 0.14em;
+    vertical-align: -0.04em;
+    background: var(--vermell);
+    border-radius: 2px;
+    box-shadow: 0 0 14px rgba(255, 74, 74, 0.6);
+    animation: titol-parpelleig 1.05s steps(1) infinite;
+  }
+
+  /* Filet vermell que s'obre sota el títol */
+  .titol-animat::after {
+    content: "";
+    display: block;
+    width: min(220px, 40%);
+    height: 3px;
+    margin: 18px auto 0;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--vermell-fort), var(--vermell), var(--vermell-fort), transparent);
+    transform-origin: center;
+    animation: titol-linia 1.1s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  @keyframes titol-entra {
+    from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes titol-reflex {
+    0%   { background-position: 130% 0; }
+    55%, 100% { background-position: -130% 0; }
+  }
+  @keyframes titol-parpelleig { 50% { opacity: 0; } }
+  @keyframes titol-linia {
+    from { transform: scaleX(0); opacity: 0; }
+    to   { transform: scaleX(1); opacity: 1; }
+  }
+
+  /* Ajustos de la terminal dins del panell */
+  .panell .hero-terminal {
+    margin: 0 0 30px 0;
+    padding: 0;
+  }
+  
+  .panell .terminal {
+    box-shadow: 0 0 30px rgba(255, 40, 40, 0.05); /* Sombra més suau */
+  }
+
+  /* =====================================================================
+     ANIMACIONS SEMPRE ACTIVES (depenen de l'interruptor del <head>)
+     estils.css desactiva totes les animacions i transicions quan el sistema
+     té activat «reduir animacions». Aquí es tornen a activar només per a
+     aquesta pàgina; el selector html.anim-sempre guanya el *{} d'estils.css.
+     ===================================================================== */
+  @media (prefers-reduced-motion: reduce) {
+    html.anim-sempre a { transition: color 0.2s ease !important; }
+    html.anim-sempre .hero-nav { animation: entra 0.6s ease both !important; }
+    html.anim-sempre .hero-nav a {
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease !important;
+    }
+    html.anim-sempre .boto { transition: background 0.2s ease, transform 0.2s ease !important; }
+    html.anim-sempre .cursor { animation: parpelleig 1.05s steps(1) infinite !important; }
+
+    html.anim-sempre .titol-paraula {
+      animation: titol-entra 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+                 titol-reflex 6s ease-in-out 1.2s infinite !important;
+    }
+    html.anim-sempre .titol-accent {
+      animation: titol-entra 0.8s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both,
+                 titol-reflex 6s ease-in-out 1.4s infinite !important;
+    }
+    html.anim-sempre .titol-bloc { animation: titol-parpelleig 1.05s steps(1) infinite !important; }
+    html.anim-sempre .titol-animat::after {
+      animation: titol-linia 1.1s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both !important;
+    }
+
+    html.anim-sempre details.llicencia { transition: border-color 0.25s ease !important; }
+    html.anim-sempre details.llicencia summary::before { transition: transform 0.25s ease !important; }
+    html.anim-sempre details.llicencia .bloc-llicencia { animation: entra 0.35s ease both !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="portada-wrapper">
+    
+    <!-- Navegació (la deixem a dalt de tot) -->
+    <nav class="hero-nav">
+      <a href="index.html">Portada</a>
+      <a href="sprints-ubuntu.html">Sprints d'Ubuntu</a>
+      <a href="sprints-windows.html">Sprints de Windows</a>
+      <a href="https://aarhooonn.github.io/sistemes_operatius/" target="_blank" rel="noopener">Codi a GitHub ↗</a>
+    </nav>
+
+    <!-- Panell principal -->
+    <main class="contenidor" style="width: 100%; margin: 0;">
+      <section class="panell portada-hero" style="margin-top: 0;">
+        
+        <!-- Títol animat dins del panell -->
+        <h1 class="titol-animat">
+          <span class="titol-prompt" aria-hidden="true">&gt;_</span>
+          <span class="titol-paraula">Sistemes</span>
+          <span class="titol-paraula titol-accent">Operatius</span><span class="titol-bloc" aria-hidden="true"></span>
+        </h1>
+
+        <!-- Terminal centrada dins del panell -->
+        <div class="hero-terminal">
+          <div class="terminal" role="group" aria-label="Terminal d'inici">
+            <div class="terminal-barra" aria-hidden="true">
+              <span class="punt"></span><span class="punt"></span><span class="punt"></span>
+            </div>
+            <div class="terminal-cos" id="terminal">
+              
+              <div class="pas">
+                <p class="linia"><span class="prompt">$</span><span class="ordre" data-text="whoami">whoami</span></p>
+                <p class="sortida">aarhon merlos</p>
+              </div>
+              
+              <div class="pas">
+                <p class="linia"><span class="prompt">$</span><span class="ordre" data-text="pwd">pwd</span></p>
+                <p class="sortida">/home/aarhon</p>
+              </div>
+              
+              <div class="pas">
+                <p class="linia"><span class="prompt">$</span><span class="ordre" data-text="cat astral.png">cat astral.png</span></p>
+                <pre class="ascii" role="img" aria-label="Art ASCII de la imatge astral.png">⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢘⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢨⣿⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀⠀⢠⣟⠀⠀⠀⠀⠀⠀⢠⠀⢰⠀⠀⠀⠀⠀⠀⠀⡏⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣏⣻⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠙⠀⠀⠀⠀⠀⠈⣿⡀⠀⠀⠀⠀⠀⢸⠀⠀⡇⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣼⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣄⠆⠀⠀⠀⠐⣿⣷⡀⠀⠀⠀⠀⠸⡀⠀⢷⠀⠀⠀⠀⠀⠀⢹⢈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⢰⢸⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣞⣆⠀⠀⠀⠀⠈⠛⠳⠄⠰⡀⠀⠀⠀⡀⠀⣠⡀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠈⣏⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢉⡆⠀⠀⠀⠀⢰⣇⠀⡄⠘⣦⡀⠀⣻⣄⠹⢿⢯⡀⠀⠍⣿⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⠀⠀⢻⢻⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢟⠎⠨⠀⠀⠀⠀⢀⠈⠳⢀⣿⣧⡀⢻⣷⣮⡛⠛⠉⠀⠉⠛⠏⠝⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢺⢸⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣵⠏⠀⠠⠀⡄⠀⠀⢸⠳⢆⣾⢿⣿⣿⣿⣿⣿⣥⡤⠾⣿⣿⠁⡂⢷⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡄⣾⢸⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⣿⡿⣫⣾⠃⠀⢀⠂⠀⠀⠀⠀⢟⣵⣿⣷⣔⢌⠿⣿⣿⣿⣯⣦⣀⠛⠻⢬⣉⣤⠀⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠆⢼⡀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⣷⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⣿⢏⣼⡿⠃⢀⠨⠀⠀⠀⠀⢠⣾⣿⣿⣿⣿⣿⣷⣕⡌⢛⢿⣿⣿⣿⣿⢧⣤⡶⠄⠠⢀⣀⣤⣴⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⢸⡃⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⣿⢇⣾⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣦⡿⣎⡟⣿⢱⣸⣿⣷⣾⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⡸⣿⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⣿⡏⣼⡿⡵⠁⢀⡔⠠⢂⠄⠀⠀⠀⠐⡼⣦⣽⣿⣿⣿⣿⣿⣿⣿⣶⣯⠓⢩⣙⢻⢿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠥⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡝⣿⣿⣿⣿⣿
+⣿⣿⣿⣿⡿⣭⣫⠞⡑⠠⣾⠃⠀⠠⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⠿⠿⠿⠿⠇⢌⣿⣶⣤⣈⠺⣟⢿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⡎⢿⣿⣿⣿
+⣿⣿⣿⣿⢟⣽⡓⠀⡠⢰⠋⠀⣰⠀⠀⠀⠀⠀⠀⠹⠻⣿⣿⣿⣿⣿⣿⣿⣿⣽⠠⣰⣶⣶⣶⣤⣄⣂⣙⠪⣽⣻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⢠⠹⣿⡀⣻⣿⣿
+⣿⣿⣿⣯⣟⡽⠁⣰⡕⢰⠂⡰⠃⠀⠀⠀⠀⠀⠀⠀⢸⣦⣭⣻⠿⣿⣿⣿⣿⠃⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠀⠀⠹⡆⢹⣯⠱⣻⣿
+⣿⣿⣳⣟⡾⠁⣸⢙⣼⠈⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠈⣛⢿⣿⣷⣿⣿⣿⡟⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡐⣤⣿⡇⣇⣿
+⣿⣿⣿⣿⠣⢰⢏⡾⢁⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⠃⣾⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠋⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇⡘⣿⡇⢻⣾
+⣿⣿⣿⡏⢆⢊⠞⣴⢿⠀⠀⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠋⠉⠀⢀⣮⢯⣾⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⢸⢱⠸⡏⣰⣿
+⣿⣿⣿⠃⠎⣠⣾⣿⠇⠀⠀⠀⠀⠀⣸⢧⠀⠀⠀⠀⠀⠀⠙⠛⠻⠿⠛⠛⠛⠋⠉⠁⠐⠈⠀⠀⠀⢀⣴⡟⣷⣿⠇⠂⠀⠀⠀⠀⠀⠀⠀⠀⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠘⡄⢰⡇⢰⣿⣿
+⣿⢿⠟⠠⣸⣿⣿⠏⠀⠀⡀⡆⠀⠀⣿⡄⡀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠢⠀⠀⠀⠀⠀⠀⢀⡴⣫⣯⣾⣿⡿⠄⠀⠀⠀⠀⠀⠀⠀⠀⣠⡿⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣷⢸⣾⡘⣿⣿
+⡿⣣⣾⢀⣿⣿⡟⠀⡄⢰⡇⡇⠀⠀⣼⣧⡇⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣧⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠈⣿⡇⣿⣿
+⣾⣿⡿⡈⢿⡿⠁⢰⠁⢸⡇⣇⠀⠆⡏⣿⣿⡌⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠀⠀⠀⠀⠀⠀⢻⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠘⢿⠀⠀⠀⢀⣤⣶⣾⣿⣿⣷⣶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠂⢹⡷⢸⣿</pre>
+              </div>
+              
+              <p class="linia pas-final"><span class="prompt">$</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botons just a sota de la terminal -->
+        <div class="botons-portada">
+          <a class="boto" href="sprints-ubuntu.html">Sprints d'Ubuntu →</a>
+          <a class="boto boto-secundari" href="sprints-windows.html">Sprints de Windows →</a>
+        </div>
+
+        <!-- Llicència (la mantinc per si la vols) -->
+        <details class="llicencia">
+          <summary>Llicència</summary>
+          <div class="bloc-llicencia">
+            <h3>Llicència d'aquest treball</h3>
+            <p>Per defecte, tot el contingut d'aquesta web es publica amb la llicència
+               <strong>Creative Commons Reconeixement–NoComercial–CompartirIgual (CC BY-NC-SA 4.0)</strong>.</p>
+            <div class="badge-cc">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ca" target="_blank" rel="license noopener">
+                <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Llicència Creative Commons" width="88" height="31">
+              </a>
+              <span>CC BY-NC-SA 4.0</span>
+            </div>
+          </div>
+        </details>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    /* Efecte d'escriptura del terminal */
+    (function () {
+      var t = document.getElementById('terminal');
+      var forcaAnimacions = window.PORTADA_ANIMACIONS_SEMPRE === true;
+      var movimentReduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!t || (movimentReduit && !forcaAnimacions)) return;
+
+      var passos = [].slice.call(t.querySelectorAll('.pas'));
+      var final = t.querySelector('.pas-final');
+      var cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+
+      passos.forEach(function (p) { p.hidden = true; });
+      final.hidden = true;
+
+      function executa(k) {
+        if (k >= passos.length) {
+          final.hidden = false;
+          final.appendChild(cursor);
+          return;
+        }
+        var p = passos[k];
+        var linia = p.querySelector('.linia');
+        var ordre = linia.querySelector('.ordre');
+        var text = ordre.getAttribute('data-text');
+        var sortides = [].slice.call(p.children).filter(function (e) { return e !== linia; });
+
+        sortides.forEach(function (e) { e.hidden = true; });
+        ordre.textContent = '';
+        p.hidden = false;
+        linia.appendChild(cursor);
+
+        var i = 0;
+        (function tecla() {
+          if (i < text.length) {
+            ordre.textContent += text.charAt(i++);
+            setTimeout(tecla, 70 + Math.random() * 70);
+          } else {
+            setTimeout(function () {
+              sortides.forEach(function (e) { e.hidden = false; });
+              setTimeout(function () { executa(k + 1); }, 600);
+            }, 380);
+          }
+        })();
+      }
+
+      setTimeout(function () { executa(0); }, 600);
+    })();
+  </script>
+
+</body>
+</html>
