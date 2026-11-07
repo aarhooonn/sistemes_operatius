@@ -1,163 +1,503 @@
-/* Full de estils comu per a tot el lloc.
+/* =====================================================================
+
    Enllaça-la sempre igual:
    <link rel="stylesheet" href="../css/estils.css">  (des d'una carpeta de sprint)
-   <link rel="stylesheet" href="css/estils.css">      (des de l'arrel) */
+   <link rel="stylesheet" href="css/estils.css">      (des de l'arrel)
 
+   Índex:
+   1. Variables i base
+   2. Barra fixa (sticky) de navegació
+   3. Hero
+   4. Panells i parts
+   5. Contingut dels apartats (text, ordres, taules, caixes)
+   6. Captures de pantalla
+   7. Components de la resta del lloc (portada, targetes, botons…)
+   8. Peu de pàgina
+   9. Animacions i moviment reduït
+   10. Responsiu
+   ===================================================================== */
+
+
+/* ---------- 1. Variables i base ---------- */
 :root {
-  --mari: #122542;
-  --teal: #0c6e73;
-  --ambre: #c9821f;
-  --tinta: #1b2430;
-  --tinta-suau: #57626c;
-  --fons: #f5f6f8;
-  --blanc: #ffffff;
-  --vora: #dde2e7;
-  --radi: 12px;
+  --negre: #000000;
+  --superficie: #0a0a0a;
+  --superficie-2: #121212;
+  --text: #f5f5f5;
+  --text-suau: #b4b4b4;
+  --vermell: #ff4a4a;          /* text i detalls (6:1 sobre negre) */
+  --vermell-fort: #e01b24;     /* farcits i vores */
+  --vermell-fosc: #5a1a1d;     /* vores en repòs d'elements vermells */
+  --vermell-tint: rgba(255, 74, 74, 0.10);
+  --vora: #262626;
+  --vora-forta: #3d3d3d;
+
+  --radi: 10px;
+  --ample: 940px;
+  --alt-barra: 56px;
+
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --mono: "IBM Plex Mono", "JetBrains Mono", "Cascadia Code", ui-monospace, Consolas, "Courier New", monospace;
+
+  /* Àlies dels noms antics, per si alguna altra pàgina els fa servir */
+  --mari: var(--negre);
+  --teal: var(--vermell-fort);
+  --ambre: var(--vermell);
+  --tinta: var(--text);
+  --tinta-suau: var(--text-suau);
+  --fons: var(--negre);
+  --blanc: var(--text);
+
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 
-body {
-  margin: 0;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  color: var(--tinta);
-  background: var(--fons);
-  line-height: 1.55;
+html {
+  scroll-padding-top: calc(var(--alt-barra) + 20px);
+  -webkit-text-size-adjust: 100%;
 }
 
-a { color: var(--teal); text-decoration: none; }
-a:hover { text-decoration: underline; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--negre);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--vermell-fort); color: #fff; }
+
+a {
+  color: var(--vermell);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+a:hover { color: #fff; text-decoration: underline; }
+
+:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1, h2, h3 { color: #fff; line-height: 1.25; }
+h3 { font-size: 1.1rem; margin: 1.6rem 0 0.5rem; }
 
 .contenidor {
-  max-width: 900px;
+  max-width: var(--ample);
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* ---------- Capçalera / hero (present a totes les pàgines) ---------- */
+/* Línia de lectura còmoda dins dels panells */
+.panell p, .panell ul, .panell ol, .panell figcaption { max-width: 72ch; }
+
+.salta {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  background: var(--vermell-fort);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 0 0 8px 8px;
+  z-index: 200;
+  transition: top 0.2s ease;
+}
+.salta:focus { top: 0; color: #fff; text-decoration: none; }
+
+
+/* ---------- 2. Barra fixa (sticky) de navegació ---------- */
+.barra {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.86);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--vora);
+}
+
+.barra-in {
+  max-width: var(--ample);
+  margin: 0 auto;
+  padding: 0 20px;
+  height: var(--alt-barra);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.barra-marca {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.barra-marca:hover { color: var(--vermell); text-decoration: none; }
+
+.barra-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.barra-nav::-webkit-scrollbar { display: none; }
+
+.barra-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text-suau);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  box-shadow: inset 0 -2px 0 transparent;
+  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.25s ease;
+}
+.barra-nav a .n {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--vermell);
+}
+.barra-nav a:hover {
+  color: #fff;
+  background: var(--superficie-2);
+  text-decoration: none;
+}
+.barra-nav a[aria-current="true"] {
+  color: #fff;
+  box-shadow: inset 0 -2px 0 var(--vermell);
+}
+
+/* Barra de progrés de lectura */
+.barra-progres {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: var(--vermell);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+
+
+/* ---------- 3. Hero (present a totes les pàgines) ---------- */
 .hero {
-  background: linear-gradient(125deg, var(--mari) 0%, var(--teal) 55%, var(--ambre) 100%);
-  padding-bottom: 60px;
-  color: var(--blanc);
+  background: var(--negre);
+  border-bottom: 1px solid var(--vora);
+  padding-bottom: 52px;
+}
+
+.hero > * {
+  max-width: var(--ample);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .hero-nav {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
   flex-wrap: wrap;
-  padding: 18px 20px 0;
+  padding-top: 22px;
 }
 
 .hero-nav a {
-  color: rgba(255, 255, 255, 0.95);
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--vora-forta);
   padding: 7px 16px;
   border-radius: 999px;
   font-size: 0.85rem;
   text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
-.hero-nav a:hover { background: rgba(255, 255, 255, 0.24); text-decoration: none; }
+.hero-nav a:hover {
+  border-color: var(--vermell);
+  color: var(--vermell);
+  background: var(--vermell-tint);
+  text-decoration: none;
+}
 
 .hero-titol {
-  text-align: center;
-  padding: 30px 20px 0;
+  text-align: left;
+  padding-top: 48px;
 }
 
 .hero-titol .miguetes {
   font-size: 0.85rem;
-  opacity: 0.85;
-  margin: 0 0 10px;
+  color: var(--text-suau);
+  margin: 0 0 14px;
 }
-.hero-titol .miguetes a { color: #fff; text-decoration: underline; }
+.hero-titol .miguetes a { color: var(--text-suau); text-decoration: underline; }
+.hero-titol .miguetes a:hover { color: var(--vermell); }
 
 .hero-titol h1 {
-  margin: 0 0 8px;
-  font-size: 2.1rem;
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  letter-spacing: -0.02em;
   color: #fff;
 }
 
 .hero-titol p.subtitol {
   margin: 0;
-  opacity: 0.92;
-  font-size: 1.05rem;
+  max-width: 60ch;
+  color: var(--text-suau);
+  font-size: 1.1rem;
 }
 
-/* ---------- Panell blanc flotant que xafa el hero ---------- */
+/* Filet vermell sota el títol */
+.hero-titol::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 28px;
+  background: var(--vermell-fort);
+  border-radius: 2px;
+}
+
+
+/* ---------- 4. Panells i parts ---------- */
 main { padding-bottom: 50px; }
 
 .panell {
-  background: var(--blanc);
+  background: var(--superficie);
+  border: 1px solid var(--vora);
   border-radius: var(--radi);
-  box-shadow: 0 12px 32px rgba(18, 37, 66, 0.16);
-  margin-top: -42px;
+  margin-top: 28px;
   padding: 32px 34px;
-  position: relative;
-  z-index: 1;
+}
+main > .panell:first-child { margin-top: 40px; }
+
+/* Capçalera de cada part (1 a 4) */
+.part-cap {
+  margin: 0 0 28px;
+  padding: 0 0 18px 18px;
+  border-bottom: 1px solid var(--vora);
+  border-left: 4px solid var(--vermell-fort);
+}
+.part-titol {
+  margin: 0 0 6px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.015em;
+}
+.part-cap p { margin: 0; font-size: 0.9rem; }
+
+.taula-apartats {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 8px;
+}
+.taula-apartats th, .taula-apartats td {
+  text-align: left;
+  padding: 12px 12px;
+  border-bottom: 1px solid var(--vora);
+  vertical-align: top;
+}
+.taula-apartats th {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-suau);
+  border-bottom-color: var(--vora-forta);
+}
+.taula-apartats td:first-child,
+.taula-apartats th:first-child {
+  width: 46px;
+  color: var(--vermell);
+  font-family: var(--mono);
+}
+.taula-apartats tbody tr { transition: background 0.2s ease; }
+.taula-apartats tbody tr:hover { background: var(--superficie-2); }
+.taula-apartats a { font-weight: 600; }
+
+/* Índex intern de cada part */
+.mini-index {
+  columns: 2;
+  column-gap: 2rem;
+  max-width: none !important;
+  padding-left: 1.2rem;
+}
+.mini-index li { margin: 5px 0; break-inside: avoid; }
+.mini-index li::marker { color: var(--vermell); }
+
+
+/* ---------- 5. Contingut dels apartats ---------- */
+.apartat {
+  padding-top: 28px;
+  margin-top: 30px;
+  border-top: 1px solid var(--vora);
+}
+.apartat h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.apartat ul { padding-left: 22px; }
+.apartat li { margin: 4px 0; }
+.repte { margin-top: 1.8rem; color: var(--vermell); }
+
+.tornar-index { font-size: 0.85rem; margin-top: 1.4rem; }
+.tornar-index a { color: var(--text-suau); }
+.tornar-index a:hover { color: var(--vermell); }
+
+.ordres-titol {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-suau);
+  margin: 1.2rem 0 0.3rem;
 }
 
-/* ---------- Blocs de codi dins dels apartats ---------- */
-.apartat pre {
-  background: #2d2d2d;
-  color: #f8f8f2;
-  padding: 15px;
-  border-radius: 8px;
-  overflow-x: auto;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.9em;
-  line-height: 1.45;
-  margin: 14px 0;
-}
+/* Ordres de terminal: sempre en vermell */
+code, kbd, pre { font-family: var(--mono); }
 
-.apartat code {
-  background: var(--fons);
+code {
+  color: var(--vermell);
+  background: var(--vermell-tint);
   padding: 2px 6px;
   border-radius: 4px;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.9em;
+  font-size: 0.88em;
+  overflow-wrap: anywhere;
 }
 
-/* Dins d'un <pre>, el <code> no ha de tenir fons clar */
-.apartat pre code {
+pre {
+  background: #050505;
+  color: var(--vermell);
+  border: 1px solid var(--vora);
+  border-left: 3px solid var(--vermell-fort);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 10px 0 18px;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  tab-size: 4;
+  scrollbar-color: var(--vora-forta) #000;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+pre:hover {
+  border-color: var(--vermell-fosc);
+  border-left-color: var(--vermell);
+  box-shadow: 0 0 0 1px rgba(255, 74, 74, 0.12);
+}
+pre code {
   background: transparent;
   padding: 0;
   color: inherit;
+  font-size: inherit;
 }
 
-/* ---------- Caixa de nota destacada ---------- */
+kbd {
+  display: inline-block;
+  background: var(--superficie-2);
+  color: #fff;
+  border: 1px solid var(--vora-forta);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 6px;
+  font-size: 0.85em;
+}
+
+/* Taules compactes */
+table.compacta {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+table.compacta th, table.compacta td {
+  border: 1px solid var(--vora);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+table.compacta thead th {
+  background: var(--superficie-2);
+  color: #fff;
+  border-bottom: 2px solid var(--vermell-fort);
+}
+table.compacta tbody tr { transition: background 0.2s ease; }
+table.compacta tbody tr:hover { background: var(--superficie-2); }
+
+/* Caixes: enunciat, incidència i per revisar */
+.enunciat, .revisar, .incidencia {
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  border-radius: 6px;
+  border-left: 4px solid;
+}
+.enunciat p, .revisar p, .incidencia p { margin: 0.35rem 0; }
+.enunciat   { border-color: #fff;             background: rgba(255, 255, 255, 0.05); }
+.incidencia { border-color: var(--vermell-fort); background: var(--vermell-tint); }
+.revisar    { border-color: var(--vermell);   background: transparent; border-left-style: dashed; }
+
+/* Caixa de nota destacada (altres pàgines) */
 .note {
-  background: #e7f3fe;
-  border-left: 6px solid #2196F3;
+  background: var(--vermell-tint);
+  border-left: 5px solid var(--vermell-fort);
   padding: 15px 18px;
   margin: 20px 0;
   border-radius: 4px;
 }
-.note strong { color: var(--mari); }
+.note strong { color: #fff; }
 
-/* ---------- Captures de pantalla ---------- */
-.apartat img.screenshot {
+
+/* ---------- 6. Captures de pantalla ---------- */
+figure.captura { margin: 1.3rem 0; }
+
+figure.captura img,
+.apartat img,
+img.screenshot {
   display: block;
   max-width: 100%;
   height: auto;
+  background: #000;
   border: 1px solid var(--vora);
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  margin: 20px 0;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
 }
 
-/* ---------- Llista de prioritats (apartat 6) ---------- */
+@media (hover: hover) {
+  figure.captura:hover img {
+    transform: scale(1.015);
+    border-color: var(--vermell);
+    box-shadow: 0 10px 32px rgba(255, 40, 40, 0.2);
+  }
+}
+
+figure.captura figcaption {
+  font-size: 0.9rem;
+  color: var(--text-suau);
+  margin-top: 0.6rem;
+  padding-left: 12px;
+  border-left: 2px solid var(--vermell-fosc);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+figure.captura:hover figcaption { border-left-color: var(--vermell); color: var(--text); }
+figure.captura figcaption strong { color: #fff; }
+
 .priority-list {
-  background: var(--fons);
+  background: var(--superficie-2);
   padding: 18px 22px 18px 42px;
   border-radius: var(--radi);
   border: 1px solid var(--vora);
 }
 .priority-list li { margin-bottom: 10px; }
 .priority-list li:last-child { margin-bottom: 0; }
-.priority-list strong { color: var(--ambre); }
+.priority-list strong { color: var(--vermell); }
 
-/* ---------- Portada ---------- */
+
+/* ---------- 7. Components de la resta del lloc ---------- */
 .portada-hero { text-align: center; }
 .portada-hero img.imatge-portada {
   max-width: 300px;
@@ -168,7 +508,7 @@ main { padding-bottom: 50px; }
 
 .fitxa-alumne {
   display: inline-block;
-  background: var(--fons);
+  background: var(--superficie-2);
   border: 1px solid var(--vora);
   border-radius: var(--radi);
   padding: 14px 22px;
@@ -176,64 +516,21 @@ main { padding-bottom: 50px; }
   text-align: left;
 }
 .fitxa-alumne p { margin: 3px 0; }
-.fitxa-alumne strong { color: var(--mari); }
+.fitxa-alumne strong { color: #fff; }
 
 .boto {
   display: inline-block;
-  background: var(--teal);
-  color: var(--blanc) !important;
+  background: var(--vermell-fort);
+  color: #fff !important;
   padding: 12px 26px;
   border-radius: var(--radi);
   font-weight: 600;
   text-decoration: none !important;
   margin-top: 8px;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
-.boto:hover { background: var(--mari); }
+.boto:hover { background: #fff; color: #000 !important; transform: translateY(-1px); }
 
-/* ---------- Graella de targetes (sprints / apartats) ---------- */
-.rejilla-targetes {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin: 24px 0 6px;
-}
-
-.targeta {
-  display: block;
-  background: var(--fons);
-  border: 1px solid var(--vora);
-  border-radius: var(--radi);
-  padding: 18px 20px;
-  transition: box-shadow 0.15s, transform 0.15s;
-}
-.targeta:hover {
-  box-shadow: 0 4px 14px rgba(12, 110, 115, 0.18);
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-.targeta .numero {
-  display: inline-block;
-  background: var(--teal);
-  color: var(--blanc);
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 2px 9px;
-  border-radius: 999px;
-  margin-bottom: 8px;
-}
-.targeta h3 { margin: 0 0 4px; color: var(--tinta); font-size: 1.05rem; }
-.targeta p { margin: 0; color: var(--tinta-suau); font-size: 0.9rem; }
-
-h1, h2 { color: var(--mari); }
-
-.consell {
-  color: var(--tinta-suau);
-  font-size: 0.9rem;
-  margin-top: 18px;
-}
-.consell code { background: var(--fons); padding: 1px 5px; border-radius: 4px; }
-
-/* ---------- Botons de la portada (Ubuntu / Windows) ---------- */
 .botons-portada {
   display: flex;
   gap: 14px;
@@ -241,59 +538,64 @@ h1, h2 { color: var(--mari); }
   flex-wrap: wrap;
   margin-top: 8px;
 }
+.boto-secundari { background: transparent; border: 1px solid var(--vermell-fort); }
+.boto-secundari:hover { background: #fff; border-color: #fff; }
 
-.boto-secundari {
-  background: var(--ambre);
+.rejilla-targetes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 24px 0 6px;
 }
-.boto-secundari:hover {
-  background: var(--mari);
-}
-
-/* ---------- Taula d'apartats (índex intern d'un sprint, amb ancoratges) ---------- */
-.taula-apartats {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 6px 0 8px;
-}
-.taula-apartats th, .taula-apartats td {
-  text-align: left;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--vora);
-}
-.taula-apartats th {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--tinta-suau);
-}
-.taula-apartats td:first-child, .taula-apartats th:first-child { width: 46px; color: var(--tinta-suau); }
-.taula-apartats tr:hover td { background: var(--fons); }
-.taula-apartats a { font-weight: 600; }
-
-/* ---------- Contingut d'un apartat, dins de la mateixa pàgina ---------- */
-.apartat {
-  scroll-margin-top: 20px;
-  padding-top: 26px;
-  margin-top: 26px;
-  border-top: 1px solid var(--vora);
-}
-.apartat h2 { margin-top: 0; }
-.apartat img {
-  max-width: 100%;
-  border-radius: var(--radi);
+.targeta {
+  display: block;
+  background: var(--superficie-2);
   border: 1px solid var(--vora);
-  margin: 14px 0;
+  border-radius: var(--radi);
+  padding: 18px 20px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
-.apartat ul { padding-left: 22px; }
-.apartat li { margin: 4px 0; }
-.tornar-index { font-size: 0.85rem; }
+.targeta:hover {
+  border-color: var(--vermell);
+  box-shadow: 0 6px 20px rgba(255, 40, 40, 0.14);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.targeta .numero {
+  display: inline-block;
+  background: var(--vermell-fort);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.targeta h3 { margin: 0 0 4px; color: #fff; font-size: 1.05rem; }
+.targeta p { margin: 0; color: var(--text-suau); font-size: 0.9rem; }
 
-/* ---------- Peu de pàgina: llicència i autoria (fix a totes les pàgines) ---------- */
+.consell { color: var(--text-suau); font-size: 0.9rem; margin-top: 18px; }
+
+.bloc-llicencia {
+  border: 1px solid var(--vora);
+  border-radius: var(--radi);
+  padding: 18px 20px;
+  margin-top: 22px;
+  text-align: left;
+  background: var(--superficie-2);
+}
+.bloc-llicencia h3 { margin: 0 0 8px; font-size: 1rem; color: #fff; }
+.bloc-llicencia p { margin: 6px 0; font-size: 0.92rem; }
+.bloc-llicencia .badge-cc { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+
+
+/* ---------- 8. Peu de pàgina ---------- */
 footer.peu {
   text-align: center;
-  color: var(--tinta-suau);
+  color: var(--text-suau);
   font-size: 0.85rem;
   padding: 30px 20px 46px;
+  border-top: 1px solid var(--vora);
 }
 .peu-llicencia {
   display: flex;
@@ -305,17 +607,56 @@ footer.peu {
 }
 .peu-llicencia img { display: block; }
 footer.peu .autoria { margin: 0; }
-footer.peu .autoria strong { color: var(--tinta); }
+footer.peu .autoria strong { color: #fff; }
 
-/* ---------- Bloc de llicència a la portada ---------- */
-.bloc-llicencia {
-  border: 1px solid var(--vora);
-  border-radius: var(--radi);
-  padding: 18px 20px;
-  margin-top: 22px;
-  text-align: left;
-  background: var(--fons);
+
+/* ---------- 9. Animacions (subtils) ---------- */
+@keyframes entra {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
-.bloc-llicencia h3 { margin: 0 0 8px; font-size: 1rem; color: var(--mari); }
-.bloc-llicencia p { margin: 6px 0; font-size: 0.92rem; }
-.bloc-llicencia .badge-cc { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+
+/* Una única entrada en carregar la pàgina */
+.hero-nav   { animation: entra 0.6s ease both; }
+.hero-titol { animation: entra 0.7s 0.1s ease both; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+
+  /* Aparició suau de les captures i capçaleres de part en fer scroll.
+     Només actua si el JavaScript ha afegit la classe .js a <html>. */
+  .js .rev {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .js .rev.visible { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  figure.captura:hover img { transform: none; }
+}
+
+@media print {
+  .barra { display: none; }
+  .js .rev { opacity: 1; transform: none; }
+}
+
+
+/* ---------- 10. Responsiu ---------- */
+@media (max-width: 760px) {
+  .barra-marca { display: none; }
+  .barra-nav { margin-left: 0; }
+  .barra-in { padding: 0 12px; }
+}
+
+@media (max-width: 640px) {
+  .panell { padding: 22px 18px; }
+  .mini-index { columns: 1; }
+  .hero-titol { padding-top: 32px; }
+  table.compacta { display: block; overflow-x: auto; }
+}
