@@ -653,7 +653,10 @@ figure.captura figcaption strong { color: #fff; }
   border: 0;
   box-shadow: none;
   padding: 0;
-  margin: 8px 0 12px;
+  display: block;
+  width: max-content;           /* ample del contingut, així es pot centrar */
+  max-width: 100%;
+  margin: 8px auto 12px;        /* centrat dins la terminal */
   color: var(--vermell);
   font-family: "DejaVu Sans Mono", "Noto Sans Mono", "Segoe UI Symbol", "Apple Braille", monospace;
   font-size: 11px;              /* mida entera fixa (abans: clamp amb vw) */
